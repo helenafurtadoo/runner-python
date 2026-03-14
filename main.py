@@ -15,7 +15,7 @@ while running:
             running = False
             
 
-    #screen.blit(test_surface, (200,100))
+    screen.blit(test_surface, (200,100))
     
     pygame.display.update()
     clock.tick(60)
