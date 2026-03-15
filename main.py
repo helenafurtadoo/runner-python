@@ -36,12 +36,13 @@ while running:
             running = False
             
         # CHECANDO MOVIMENTOS DO MOUSE
-        if event.type == pygame.MOUSEMOTION:
-            if player_rectangle.collidepoint(event.pos): print('colisao')
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if player_rectangle.collidepoint(event.pos) and player_rectangle.bottom >= 300:
+                player_gravity = -20
 
         # CHECANDO INPUT KEYBOARD
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and player_rectangle.bottom >= 300: # aqui o player so pode pular dnv, quando estiver tocando no chao. Para evitar pular muito, e sair da tela
                 player_gravity = -20
 
             
@@ -58,19 +59,9 @@ while running:
     # ==== PLAYER ==== 
     player_gravity += 1
     player_rectangle.y += player_gravity
+    if player_rectangle.bottom >= 300: player_rectangle.bottom = 300 # se o player estiver em um ponto >= 300, colocar ele de volta no 300 (pos y) | BARREIRA PARA MANTES O PLAYER NA ALTURA DO CHAO
     screen.blit(player_surface, player_rectangle)
-
-
-    # if player_rectangle.colliderect(snail_rectangle):
-    #     print('collision')
-
-
-   # check if the mouse colides with the player_rectangle
-    # mouse_position = pygame.mouse.get_pos()
-    # if player_rectangle.collidepoint(mouse_position): 
-    #     print('colisao') 
-    
-
+ 
     # ATUALIZANDO TUDO
     pygame.display.update()
     clock.tick(60)
