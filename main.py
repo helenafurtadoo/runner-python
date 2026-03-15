@@ -24,7 +24,8 @@ snail_rectangle = snail_surface.get_rect(bottomright = (600, 300))
 # PLAYER SURFACE
 player_surface = pygame.image.load('grafico\player\player_walk_1.png').convert_alpha()
 player_rectangle = player_surface.get_rect(midbottom = (80, 300))
-
+# PLAYER GRAVITY
+player_gravity = 0
 
 
 running = True
@@ -35,13 +36,13 @@ while running:
             running = False
             
         # CHECANDO MOVIMENTOS DO MOUSE
-        # if event.type == pygame.MOUSEMOTION:
-        #     if player_rectangle.collidepoint(event.pos): print('colisao')
+        if event.type == pygame.MOUSEMOTION:
+            if player_rectangle.collidepoint(event.pos): print('colisao')
 
         # CHECANDO INPUT KEYBOARD
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                print('jump') 
+                player_gravity = -20
 
             
     # PRINTING THE SURFACES
@@ -53,8 +54,11 @@ while running:
     snail_rectangle.x-= 4
     if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
     screen.blit(snail_surface, snail_rectangle)
-    screen.blit(player_surface, player_rectangle)
 
+    # ==== PLAYER ==== 
+    player_gravity += 1
+    player_rectangle.y += player_gravity
+    screen.blit(player_surface, player_rectangle)
 
 
     # if player_rectangle.colliderect(snail_rectangle):
