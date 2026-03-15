@@ -16,8 +16,7 @@ text_surface = test_font.render('Jogo do corredorrrrr', False, 'Purple') #AA des
 
 # SNAIL SURFACE
 snail_surface = pygame.image.load('grafico\snail\snail1.png').convert_alpha()  
-snail_pos_x = 600
-
+snail_rectangle = snail_surface.get_rect(bottomright = (600, 300))
 
 # PLAYER SURFACE
 player_surface = pygame.image.load('grafico\player\player_walk_1.png').convert_alpha()
@@ -35,9 +34,10 @@ while running:
     screen.blit(sky_surface, (0,0))
     screen.blit(ground_surface, (0, 300))
     screen.blit(text_surface, (200,50))
-    snail_pos_x -= 4 # para andar para a esquerda + velocidade
-    if snail_pos_x < -100: snail_pos_x = 800
-    screen.blit(snail_surface, (snail_pos_x, 250))
+
+    snail_rectangle.x-= 4
+    if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
+    screen.blit(snail_surface, snail_rectangle)
     screen.blit(player_surface, player_rectangle)
    
     
