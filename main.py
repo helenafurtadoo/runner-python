@@ -38,6 +38,11 @@ while running:
         # if event.type == pygame.MOUSEMOTION:
         #     if player_rectangle.collidepoint(event.pos): print('colisao')
 
+        # CHECANDO INPUT KEYBOARD
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                print('jump') 
+
             
     # PRINTING THE SURFACES
     screen.blit(sky_surface, (0,0))
@@ -49,6 +54,8 @@ while running:
     if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
     screen.blit(snail_surface, snail_rectangle)
     screen.blit(player_surface, player_rectangle)
+
+
 
     # if player_rectangle.colliderect(snail_rectangle):
     #     print('collision')
