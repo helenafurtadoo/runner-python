@@ -30,6 +30,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
             
+        # CHECANDO MOVIMENTOS DO MOUSE
+        # if event.type == pygame.MOUSEMOTION:
+        #     if player_rectangle.collidepoint(event.pos): print('colisao')
+
+            
     # PRINTING THE SURFACES
     screen.blit(sky_surface, (0,0))
     screen.blit(ground_surface, (0, 300))
@@ -39,8 +44,17 @@ while running:
     if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
     screen.blit(snail_surface, snail_rectangle)
     screen.blit(player_surface, player_rectangle)
-   
+
+    # if player_rectangle.colliderect(snail_rectangle):
+    #     print('collision')
+
+
+   # check if the mouse colides with the player_rectangle
+    # mouse_position = pygame.mouse.get_pos()
+    # if player_rectangle.collidepoint(mouse_position): 
+    #     print('colisao') 
     
+
     # ATUALIZANDO TUDO
     pygame.display.update()
     clock.tick(60)
