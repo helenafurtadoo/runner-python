@@ -12,7 +12,10 @@ test_font = pygame.font.Font('font/Pixeltype.ttf', 50)
 # REGULAR SURFICES
 sky_surface = pygame.image.load('grafico/ceu.png').convert() #.convert() otimiza o desempenho da img
 ground_surface = pygame.image.load('grafico/chao.png').convert()
-text_surface = test_font.render('Jogo do corredorrrrr', False, 'Purple') #AA desativado
+
+# SCORE
+score_surface = test_font.render('Jogo do corredorrrrr', False, 'Purple') #AA desativado
+socre_rectangle = score_surface.get_rect(center = (400, 50))
 
 # SNAIL SURFACE
 snail_surface = pygame.image.load('grafico\snail\snail1.png').convert_alpha()  
@@ -38,7 +41,7 @@ while running:
     # PRINTING THE SURFACES
     screen.blit(sky_surface, (0,0))
     screen.blit(ground_surface, (0, 300))
-    screen.blit(text_surface, (200,50))
+    screen.blit(score_surface, socre_rectangle)
 
     snail_rectangle.x-= 4
     if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
