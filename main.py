@@ -11,9 +11,12 @@ def display_score():
 def obstacle_movement(obstacle_list):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
-             obstacle_rect.x -= 5
+            obstacle_rect.x -= 5
 
-             screen.blit(snail_surface, obstacle_rect)
+            if obstacle_rect.bottom == 300:
+                screen.blit(snail_surface, obstacle_rect)
+            else:
+                screen.blit(fly_surface, obstacle_rect)
         # list compreshion --> limpeza de memoria e gestao de obstaculo
         obstacle_list = [obstacle for obstacle in obstacle_list if obstacle.x > -100] # so add um obstaculo na lista, se x > -100 ||| # atualize minha lista de obstcls, matendo apenas aqueles que ainda nao sairam da tela pela esquerda (x > 0)
 
@@ -47,8 +50,8 @@ ground_surface = pygame.image.load('grafico/chao.png').convert()
 
 # ==== OBSTACULOS ====
 # SNAIL SURFACE
-snail_surface = pygame.image.load('grafico\snail\snail1.png').convert_alpha()  
-snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
+snail_surface = pygame.image.load('grafico\snail\snail1.png').convert_alpha()
+fly_surface = pygame.image.load('grafico/fly/Fly1.png').convert_alpha()
 
 obstacle_rect_list = []
  
@@ -100,12 +103,16 @@ while running:
         else: # caso seja game over, aperta espaco para voltar ao inicio
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
-                snail_rectangle.left = 800 # faz a lesma "renacer" para o lado, dando a impressao de voltar o jogo ao inicio
+
                 start_time = int(pygame.time.get_ticks() / 100 )
             
         # temporizador para spawn o inimigo
         if event.type == obstacle_timer and game_active: 
-            obstacle_rect_list.append(snail_surface.get_rect(bottomright =(randint(900,1100),300)))
+            if randint(0,2):
+                obstacle_rect_list.append(snail_surface.get_rect(bottomright =(randint(900,1100),300)))
+            else: 
+                obstacle_rect_list.append(fly_surface.get_rect(bottomright =(randint(900,1100),210)))
+
         
 
 
@@ -133,12 +140,12 @@ while running:
 
 
         # ==== COLISAO ====
-        # se o player colidir com a lesma == game over
-        if snail_rectangle.colliderect(player_rectangle):
-            game_active = False
-            screen.fill('Blue')
+        # # se o player colidir com a lesma == game over
+        # if snail_rectangle.colliderect(player_rectangle):
+        #     game_active = False
+        #     screen.fill('Blue')
         
-        display_score()      
+        # display_score()      
     else:
         screen.fill((94,129,162))  
         screen.blit(player_stand, player_stand_rectangle) # desenhado passos 1,2,3 do PLAYER
