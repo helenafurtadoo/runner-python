@@ -151,7 +151,10 @@ while running:
         # display_score()      
     else:
         screen.fill((94,129,162))  
-        screen.blit(player_stand, player_stand_rectangle) # desenhado passos 1,2,3 do PLAYER
+        screen.blit(player_stand, player_stand_rectangle) # desenhando passos 1,2,3 do PLAYER
+        obstacle_rect_list.clear()
+        player_rectangle.midbottom = (80,300)
+        player_gravity = 0
 
         score_message = test_font.render(f'Your score: {score}', False,(111,196,169))
         score_message_rectangle = score_message.get_rect(center = (400,330))
