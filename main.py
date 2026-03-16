@@ -3,8 +3,8 @@ pygame.init()
 
 
 def display_score():
-    current_time = pygame.time.get_ticks() - start_time
-    score_surface = test_font.render(f'{current_time}', False, (64,64,64))
+    current_time = int(pygame.time.get_ticks() / 100)- start_time 
+    score_surface = test_font.render(f'Score: {current_time}', False, (64,64,64))
     score_rectangle = score_surface.get_rect(center = (400,50))
     screen.blit(score_surface, score_rectangle)
     
@@ -60,7 +60,7 @@ while running:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 game_active = True
                 snail_rectangle.left = 800 # faz a lesma "renacer" para o lado, dando a impressao de voltar o jogo ao inicio
-                start_time = pygame.time.get_ticks()
+                start_time = int(pygame.time.get_ticks() / 100 )
 
     if game_active:         
         # PRINTING THE SURFACES
