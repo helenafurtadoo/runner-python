@@ -24,7 +24,12 @@ def obstacle_movement(obstacle_list):
         return obstacle_list
     else: return[ ]
 
-
+def collisions(player, obstacles):
+    if obstacles:
+        for obstacle_rect in obstacles:
+            if player.colliderect(obstacle_rect):
+                return False
+    return True
 
 pygame.init()
 
@@ -140,10 +145,8 @@ while running:
 
 
         # ==== COLISAO ====
-        # # se o player colidir com a lesma == game over
-        # if snail_rectangle.colliderect(player_rectangle):
-        #     game_active = False
-        #     screen.fill('Blue')
+        game_active = collisions(player_rectangle, obstacle_rect_list)
+       
         
         # display_score()      
     else:
