@@ -7,18 +7,16 @@ def display_score():
     score_surface = test_font.render(f'Score: {current_time}', False, (64,64,64))
     score_rectangle = score_surface.get_rect(center = (400,50))
     screen.blit(score_surface, score_rectangle)
-    
-
 
 # DISPLAY SURFACE
 screen = pygame.display.set_mode((800, 400)) # criando display surfice (janela de exibição)
 pygame.display.set_caption("Runner game") # criando o nome do display surfice
 clock = pygame.time.Clock()
-game_active = True
+game_active = False
 start_time = 0
 
 # FONTE
-test_font = pygame.font.Font('font/Pixeltype.ttf', 50) 
+test_font = pygame.font.Font('font/Pixeltype.ttf',50) 
 
 # REGULAR SURFICES
 sky_surface = pygame.image.load('grafico/ceu.png').convert() #.convert() otimiza o desempenho da img
@@ -30,15 +28,26 @@ ground_surface = pygame.image.load('grafico/chao.png').convert()
 
 # SNAIL SURFACE
 snail_surface = pygame.image.load('grafico\snail\snail1.png').convert_alpha()  
-snail_rectangle = snail_surface.get_rect(bottomright = (600, 300))
+snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
  
 # PLAYER SURFACE
 player_surface = pygame.image.load('grafico\player\player_walk_1.png').convert_alpha()
-player_rectangle = player_surface.get_rect(midbottom = (80, 300))
+player_rectangle = player_surface.get_rect(midbottom = (80,300))
 # PLAYER GRAVITY
 player_gravity = 0
 
 
+# ==== INTRO SCREEN ====
+player_stand = pygame.image.load('grafico\player\player_stand.png').convert_alpha() # 1.importando a imagem do player
+player_stand = pygame.transform.rotozoom(player_stand,0,2) # 2.pegando a imagem, e a transformando com pygame.transoform.rotozoom(faz uma rotacao da imagem)
+player_stand_rectangle = player_stand.get_rect(center = (400,200)) # 3.criando o retangulo em volta da imagem player
+
+game_name = test_font.render('Mario Bross da shoppe', False, (111,196,169))
+game_name_rectangle = game_name.get_rect(center = (400,80))
+
+# se n tem score, pede para apertar espaço para comecar. Se tem score, mostra o score
+game_message = test_font.render('Press space to run',  False, (111,196,169) )
+game_message_rectangle = game_message.get_rect(center = (400,34 0))
 running = True
 while running:
     for event in pygame.event.get():
@@ -87,7 +96,11 @@ while running:
             screen.fill('Blue')
         
         display_score()      
-            
+    else:
+        screen.fill((94,129,162))  
+        screen.blit(player_stand, player_stand_rectangle) # desenhado passos 1,2,3 do PLAYER
+        screen.blit(game_name, game_name_rectangle)
+        screen.blit(game_message, game_message_rectangle)
 
  
     # ATUALIZANDO TUDO
