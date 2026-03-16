@@ -49,6 +49,17 @@ game_name_rectangle = game_name.get_rect(center = (400,80))
 
 game_message = test_font.render('Press space to run',  False, (111,196,169) )
 game_message_rectangle = game_message.get_rect(center = (400,340))
+
+# ===== TIMER =====
+obstacle_timer = pygame.USEREVENT + 1
+pygame.time.set_timer(obstacle_timer,900) 
+
+
+
+
+
+
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -71,6 +82,13 @@ while running:
                 game_active = True
                 snail_rectangle.left = 800 # faz a lesma "renacer" para o lado, dando a impressao de voltar o jogo ao inicio
                 start_time = int(pygame.time.get_ticks() / 100 )
+            
+        # temporizador para spawn o inimigo
+        if event.type == obstacle_timer and game_active: 
+            print()
+        
+
+
 
     if game_active:         
         # PRINTING THE SURFACES
@@ -80,9 +98,9 @@ while running:
         # screen.blit(score_surface, score_rectangle)
         score = display_score()
 
-        snail_rectangle.x-= 4
-        if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
-        screen.blit(snail_surface, snail_rectangle)
+        # snail_rectangle.x-= 4
+        # if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
+        # screen.blit(snail_surface, snail_rectangle)
 
         # ==== PLAYER ==== 
         player_gravity += 1
