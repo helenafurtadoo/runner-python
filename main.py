@@ -7,6 +7,7 @@ def display_score():
     score_surface = test_font.render(f'Score: {current_time}', False, (64,64,64))
     score_rectangle = score_surface.get_rect(center = (400,50))
     screen.blit(score_surface, score_rectangle)
+    return current_time
 
 # DISPLAY SURFACE
 screen = pygame.display.set_mode((800, 400)) # criando display surfice (janela de exibição)
@@ -14,6 +15,7 @@ pygame.display.set_caption("Runner game") # criando o nome do display surfice
 clock = pygame.time.Clock()
 game_active = False
 start_time = 0
+score = 0
 
 # FONTE
 test_font = pygame.font.Font('font/Pixeltype.ttf',50) 
@@ -45,9 +47,8 @@ player_stand_rectangle = player_stand.get_rect(center = (400,200)) # 3.criando o
 game_name = test_font.render('Mario Bross da shoppe', False, (111,196,169))
 game_name_rectangle = game_name.get_rect(center = (400,80))
 
-# se n tem score, pede para apertar espaço para comecar. Se tem score, mostra o score
 game_message = test_font.render('Press space to run',  False, (111,196,169) )
-game_message_rectangle = game_message.get_rect(center = (400,34 0))
+game_message_rectangle = game_message.get_rect(center = (400,340))
 running = True
 while running:
     for event in pygame.event.get():
@@ -77,6 +78,7 @@ while running:
         screen.blit(ground_surface, (0, 300))
         # pygame.draw.rect(screen, '#c0e8ec', score_rectangle,border_radius = 10)
         # screen.blit(score_surface, score_rectangle)
+        score = display_score()
 
         snail_rectangle.x-= 4
         if snail_rectangle.right <= 0: snail_rectangle.left = 800 # se a parte direita retangulo da lesma for <= 0 (), "renascer" a lesma no 800 (mais esquerda possivel do x)
@@ -99,8 +101,17 @@ while running:
     else:
         screen.fill((94,129,162))  
         screen.blit(player_stand, player_stand_rectangle) # desenhado passos 1,2,3 do PLAYER
+
+        score_message = test_font.render(f'Your score: {score}', False,(111,196,169))
+        score_message_rectangle = score_message.get_rect(center = (400,330))
         screen.blit(game_name, game_name_rectangle)
-        screen.blit(game_message, game_message_rectangle)
+
+        # se n tem score, pede para apertar espaço para comecar. Se tem score, mostra o score
+        if score == 0:
+            screen.blit(game_message, game_message_rectangle)
+        else:
+            screen.blit(score_message, score_message_rectangle)
+
 
  
     # ATUALIZANDO TUDO
