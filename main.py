@@ -31,9 +31,27 @@ def collisions(player, obstacles):
                 return False
     return True
 
-pygame.init()
+def player_animation():
+    # mostrar a animacao andando, se o player estiver no chao E mostrar a animacao jump, se o player nao estiver no chao
+    global player_surface, player_index
 
-# DISPLAY SURFACE
+    if player_rectangle.bottom < 300:
+        # jump animation
+        player_surface = player_jump
+    else:
+        # walk animation (alternar entre walk1 e walk2, por isso usar o index)
+        player_index += 0.1
+        if player_index >= len(player_walk): # quando o index chegar a 1, dps de ir polando de 0.1, quero que volte a zero, pq a lista tem apenas 2 elementos, 0 e 1(walk1 | walk2)
+            player_index = 0
+        player_surface = player_walk[int(player_index)]
+
+    
+
+
+
+pygame.init()
+ 
+# ===== DISPLAY SURFACE ====
 screen = pygame.display.set_mode((800, 400)) # criando display surfice (janela de exibição)
 pygame.display.set_caption("Runner game") # criando o nome do display surfice
 clock = pygame.time.Clock()
@@ -41,7 +59,7 @@ game_active = False
 start_time = 0
 score = 0
 
-# FONTE
+# ==== FONTE =====
 test_font = pygame.font.Font('font/Pixeltype.ttf',50) 
 
 # REGULAR SURFICES
@@ -61,7 +79,13 @@ fly_surface = pygame.image.load('grafico/fly/Fly1.png').convert_alpha()
 obstacle_rect_list = []
  
 # PLAYER SURFACE
-player_surface = pygame.image.load('grafico\player\player_walk_1.png').convert_alpha()
+player_walk_1 = pygame.image.load('grafico\player\player_walk_1.png').convert_alpha()
+player_walk_2 = pygame.image.load('grafico\player\player_walk_2.png').convert_alpha()
+player_walk = [player_walk_1, player_walk_2] # para fazer animacao grafica 
+player_index = 0 
+player_jump = pygame.image.load('grafico\player\jump.png').convert_alpha()
+
+player_surface = player_walk[player_index]
 player_rectangle = player_surface.get_rect(midbottom = (80,300))
 # PLAYER GRAVITY
 player_gravity = 0
@@ -138,6 +162,7 @@ while running:
         player_gravity += 1
         player_rectangle.y += player_gravity
         if player_rectangle.bottom >= 300: player_rectangle.bottom = 300 # se o player estiver em um ponto >= 300, colocar ele de volta no 300 (pos y) | BARREIRA PARA MANTES O PLAYER NA ALTURA DO CHAO
+        player_animation()
         screen.blit(player_surface, player_rectangle)
 
         # ==== MOVIMENTOS DO OBSTACULO =====
