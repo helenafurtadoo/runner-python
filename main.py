@@ -14,6 +14,9 @@ def obstacle_movement(obstacle_list):
              obstacle_rect.x -= 5
 
              screen.blit(snail_surface, obstacle_rect)
+        # list compreshion --> limpeza de memoria e gestao de obstaculo
+        obstacle_list = [obstacle for obstacle in obstacle_list if obstacle.x > -100] # so add um obstaculo na lista, se x > -100 ||| # atualize minha lista de obstcls, matendo apenas aqueles que ainda nao sairam da tela pela esquerda (x > 0)
+
 
         return obstacle_list
     else: return[ ]
