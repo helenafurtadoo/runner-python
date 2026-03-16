@@ -1,6 +1,5 @@
 import pygame 
-pygame.init()
-
+from random import randint
 
 def display_score():
     current_time = int(pygame.time.get_ticks() / 100)- start_time 
@@ -8,6 +7,20 @@ def display_score():
     score_rectangle = score_surface.get_rect(center = (400,50))
     screen.blit(score_surface, score_rectangle)
     return current_time
+
+def obstacle_movement(obstacle_list):
+    if obstacle_list:
+        for obstacle_rect in obstacle_list:
+             obstacle_rect.x -= 5
+
+             screen.blit(snail_surface, obstacle_rect)
+
+        return obstacle_list
+    else: return[ ]
+
+
+
+pygame.init()
 
 # DISPLAY SURFACE
 screen = pygame.display.set_mode((800, 400)) # criando display surfice (janela de exibição)
@@ -28,9 +41,13 @@ ground_surface = pygame.image.load('grafico/chao.png').convert()
 # score_surface = test_font.render('Runner game', False,(64,64,64)) #AA desativado
 # score_rectangle = score_surface.get_rect(center = (400, 50))
 
+
+# ==== OBSTACULOS ====
 # SNAIL SURFACE
 snail_surface = pygame.image.load('grafico\snail\snail1.png').convert_alpha()  
 snail_rectangle = snail_surface.get_rect(bottomright = (600,300))
+
+obstacle_rect_list = []
  
 # PLAYER SURFACE
 player_surface = pygame.image.load('grafico\player\player_walk_1.png').convert_alpha()
@@ -52,7 +69,7 @@ game_message_rectangle = game_message.get_rect(center = (400,340))
 
 # ===== TIMER =====
 obstacle_timer = pygame.USEREVENT + 1
-pygame.time.set_timer(obstacle_timer,900) 
+pygame.time.set_timer(obstacle_timer,1500) 
 
 
 
@@ -85,7 +102,7 @@ while running:
             
         # temporizador para spawn o inimigo
         if event.type == obstacle_timer and game_active: 
-            print()
+            obstacle_rect_list.append(snail_surface.get_rect(bottomright =(randint(900,1100),300)))
         
 
 
@@ -107,6 +124,9 @@ while running:
         player_rectangle.y += player_gravity
         if player_rectangle.bottom >= 300: player_rectangle.bottom = 300 # se o player estiver em um ponto >= 300, colocar ele de volta no 300 (pos y) | BARREIRA PARA MANTES O PLAYER NA ALTURA DO CHAO
         screen.blit(player_surface, player_rectangle)
+
+        # ==== MOVIMENTOS DO OBSTACULO =====
+        obstacle_rect_list = obstacle_movement(obstacle_rect_list)
 
 
         # ==== COLISAO ====
