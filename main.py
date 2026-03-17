@@ -117,8 +117,6 @@ pygame.time.set_timer(snail_animation_timer,500)
 fly_animation_timer = pygame.USEREVENT + 3
 pygame.time.set_timer(fly_animation_timer,200)
 
-
-
 running = True
 while running:
     for event in pygame.event.get():
@@ -164,14 +162,7 @@ while running:
                 else:
                     fly_frame_index = 0
                 fly_surf = fly_frames[fly_frame_index]
-
-
-
-            
-
         
-
-
     if game_active:         
         # PRINTING THE SURFACES
         screen.blit(sky_surface, (0,0))
@@ -219,6 +210,6 @@ while running:
 
 
  
-    # ATUALIZANDO TUDO
+    # ==== ATUALIZANDO TUDO =====
     pygame.display.update()
     clock.tick(60)
