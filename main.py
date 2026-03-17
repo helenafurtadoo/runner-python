@@ -101,7 +101,7 @@ player_stand = pygame.image.load('grafico\player\player_stand.png').convert_alph
 player_stand = pygame.transform.rotozoom(player_stand,0,2) # 2.pegando a imagem, e a transformando com pygame.transoform.rotozoom(faz uma rotacao da imagem)
 player_stand_rectangle = player_stand.get_rect(center = (400,200)) # 3.criando o retangulo em volta da imagem player
 
-game_name = test_font.render('Mario Bross da shoppe', False, (111,196,169))
+game_name = test_font.render('Runner game', False, (111,196,169))
 game_name_rectangle = game_name.get_rect(center = (400,80))
 
 game_message = test_font.render('Press space to run',  False, (111,196,169) )
